@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,7 +11,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white,
+                  Colors.white,
+                  Colors.lightBlue.shade50,
+                ]
+              )
+            ),
+          ),
+        ),
         body: const CalculatorPage(),
       ),
     );
@@ -43,6 +58,21 @@ class _CalculatorPageState extends State<CalculatorPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white,
+                Colors.lightBlue.shade50,
+                Colors.lightBlueAccent.shade100,
+                Colors.blueAccent.shade100,
+              ]
+            )
+          ),
+        ),
+
         // Background with custom painter
         Positioned.fill(
           child: CustomPaint(
@@ -57,8 +87,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     _calculation,
@@ -122,9 +152,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
           borderRadius: BorderRadius.circular(10),
         ),// Add a background color
       ),
-      child: Text(
-        text,
-        style: TextStyle(fontSize: 24),
+      child: Text(text,
+        style: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+        ),
       ),
     );
   }
@@ -140,11 +173,13 @@ class RoundPainter extends CustomPainter {
     // Create a gradient paint
     final paint = Paint()
       ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
         colors: [
-          Colors.blue.shade200,  // Light blue at the top
-          Colors.blue.shade800,  // Dark blue at the bottom
+          Colors.lightBlueAccent.shade100,
+          Colors.cyan.shade100,  // Light blue at the top
+          Colors.cyan.shade100,  // Light blue at the top
+          Colors.indigoAccent.shade100,  // Dark blue at the bottom
         ],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill;
